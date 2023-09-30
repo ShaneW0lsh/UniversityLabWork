@@ -1,6 +1,7 @@
 #include <iostream>
 #include <functional>
 #include <string>
+#include <sstream>
 
 void bubble_sort(int* arr, const int size) {
     for (int i = 0; i < size; ++i) {
@@ -23,6 +24,16 @@ void merge_sort(int* arr, int size) {
 
 }
 
+void split(std::string& user_input, int* arr) {
+    int current_index = 0;
+    std::string token;
+    std::stringstream ss(user_input);
+    while (getline(ss, token, ' ')) {
+        arr[current_index] = stoi(token);
+        ++current_index;
+    }
+}
+
 /* write a split function and rewrite it with getline() */
 void task(std::function<void(int* arr, const int size)> sorting_algorithm) {
     int arr[1000] = { 0 };
@@ -36,8 +47,11 @@ void task(std::function<void(int* arr, const int size)> sorting_algorithm) {
         ++current_index;
     }*/
 
+    std::string user_input;
+    getline(std::cin, user_input);
+    std::cout << user_input << '\n';
 
-
+    split(user_input, arr);
 
     sorting_algorithm(arr, 1000);
 
@@ -51,6 +65,7 @@ void lab31() {
     while (true) {
         int user_input;
         std::cin >> user_input;
+        std::cin.ignore();
         switch (user_input) {
         case 1:
             task(bubble_sort);

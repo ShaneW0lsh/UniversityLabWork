@@ -15,9 +15,24 @@ void bubble_sort(int* arr, const int size) {
     }
 }
 
-void count_sort(int* arr, const int size) {
+void count_sort(char* arr, const int size) {
     const int different_elements_quantity = 26;
-
+    int count[different_elements_quantity];
+    for (int i = 0; i < size; ++i) {
+        int j = int(arr[i] - 'a');
+        count[j]++;
+    }
+    int i = 0, j = 0;
+    while (j < different_elements_quantity) {
+        if (count[j] > 0) {
+            arr[i] = char(int('a') + j);
+            ++i;
+            count[j]--;
+        }
+        else {
+            ++j;
+        }
+    }
 }
 
 void merge_sort(int* arr, int size) {
@@ -34,8 +49,9 @@ void split(std::string& user_input, int* arr) {
     }
 }
 
-void task(std::function<void(int* arr, const int size)> sorting_algorithm) {
-    int arr[1000] = { 0 };
+template<typename T>
+void task(std::function<void(T* arr, const int size)> sorting_algorithm) {
+    T arr[1000] = { 0 };
 
     std::string user_input;
     getline(std::cin, user_input);
@@ -58,13 +74,13 @@ void lab31() {
         std::cin.ignore();
         switch (user_input) {
         case 1:
-            task(bubble_sort);
+            task<int>(bubble_sort);
             break;
         case 2:
-            task(count_sort);
+            task<char>(count_sort);
             break;
         case 3:
-            task(merge_sort);
+            task<int>(merge_sort);
             break;
         default:
             return;

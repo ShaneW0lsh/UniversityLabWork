@@ -34,18 +34,8 @@ void split(std::string& user_input, int* arr) {
     }
 }
 
-/* write a split function and rewrite it with getline() */
 void task(std::function<void(int* arr, const int size)> sorting_algorithm) {
     int arr[1000] = { 0 };
-    int current_index = 0;
-
-    /*while (true) {
-        std::string user_input;
-        std::cin >> user_input;
-        if (user_input == "stop") break;
-        arr[current_index] = stoi(user_input);
-        ++current_index;
-    }*/
 
     std::string user_input;
     getline(std::cin, user_input);

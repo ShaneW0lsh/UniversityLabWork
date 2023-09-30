@@ -49,9 +49,9 @@ void split(std::string& user_input, int* arr) {
     }
 }
 
-template<typename T>
-void task(std::function<void(T* arr, const int size)> sorting_algorithm) {
-    T arr[1000] = { 0 };
+template< //I'll have to rewrite all this shit fuck thiiiiiiiiiiiiiiiiiiiiiis!
+void task(std::function<void(int* arr, const int size)> sorting_algorithm) {
+    int arr[1000] = { 0 };
 
     std::string user_input;
     getline(std::cin, user_input);

@@ -118,7 +118,25 @@ void merge_sorted_arrays(int* arr, int l, int m, int r) {
     int left_length = m - l + 1;
     int right_length = r - m;
 
-    int temp_left[left_length];
-    int temp_right[right_length];
+    int* temp_left = new int[left_length];
+    int* temp_right = new int[right_length];
 
+    for (int i = 0; i < left_length; ++i)
+        temp_left[i] = arr[l + i];
+
+    for (int i = 0; i < right_length; ++i)
+        temp_right[i] = arr[m + 1 + i];
+
+    int i, j, k;
+    for (i = 0, j = 0, k = l; k <= r; ++k) {
+        if ((i < left_length) &&
+            (j >= right_length || temp_left[i] <= temp_right[j])) {
+            arr[k] = temp_left[i];
+            ++i;
+        }
+        else {
+            arr[k] = temp_right[j];
+            ++j;
+        }
+    }
 }

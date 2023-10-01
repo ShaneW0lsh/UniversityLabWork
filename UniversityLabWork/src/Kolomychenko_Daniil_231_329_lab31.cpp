@@ -14,8 +14,9 @@ void merge_sorted_arrays(int* arr, int l, int m, int r);
 template<typename T>
 void split(std::string& user_input, T* arr);
 
-template<typename T>
-void task(std::function<void(T* arr, const int size)> sorting_algorithm);
+static void task1();
+static void task2();
+static void task3();
 
 void lab31() {
     while (true) {
@@ -23,31 +24,60 @@ void lab31() {
         std::cin >> user_input;
         std::cin.ignore();
         switch (user_input) {
-        case 1:
-            task<int>(bubble_sort);
-            break;
-        case 2:
-            task<char>(count_sort);
-            break;
-        case 3:
-            task<int>(merge_sort);
-            break;
-        default:
-            return;
+            case 1:
+                task1();
+                break;
+            case 2:
+                task2();
+                break;
+            case 3:
+                task3();
+                break;
+            default:
+                return;
         }
     }
 }
 
-template<typename T>
-void task(std::function<void(T* arr, const int size)> sorting_algorithm) {
-    T arr[1000] = { 0 };
+static void task1() {
+    int arr[1000] = { 0 };
 
     std::string user_input;
     getline(std::cin, user_input);
 
-    split<T>(user_input, arr);
+    split<int>(user_input, arr);
 
-    sorting_algorithm(arr, 1000);
+    bubble_sort(arr, 1000);
+
+    for (int i = 0; i < 1000; ++i)
+        std::cout << arr[i] << ' ';
+    std::cout << std::endl;
+}
+
+static void task2() {
+    char arr[1000] = { '0' };
+
+    std::string user_input;
+    getline(std::cin, user_input);
+
+    split<char>(user_input, arr);
+
+    count_sort(arr, 1000);
+
+    for (int i = 0; i < 1000; ++i)
+        std::cout << arr[i] << ' ';
+    std::cout << std::endl;
+}
+
+static void task3() {
+    int arr[1000] = { 0 };
+
+    std::string user_input;
+    getline(std::cin, user_input);
+
+    split<int>(user_input, arr);
+
+    merge_sort(arr, 1000);
 
     for (int i = 0; i < 1000; ++i)
         std::cout << arr[i] << ' ';

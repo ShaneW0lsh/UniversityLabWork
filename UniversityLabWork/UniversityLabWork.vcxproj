@@ -130,6 +130,7 @@
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab1.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab2.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab31.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab32.cpp" />
     <ClCompile Include="src\Launcher.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

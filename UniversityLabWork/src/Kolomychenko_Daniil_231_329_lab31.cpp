@@ -17,7 +17,6 @@ void split(std::string& user_input, T* arr);
 template<typename T>
 void task(std::function<void(T* arr, const int size)> sorting_algorithm);
 
-
 void lab31() {
     while (true) {
         int user_input;

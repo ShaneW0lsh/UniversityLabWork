@@ -17,21 +17,19 @@ void bubble_sort(int* arr, const int size) {
 
 void count_sort(char* arr, const int size) {
     const int different_elements_quantity = 26;
-    int count[different_elements_quantity];
+    int count[different_elements_quantity] = { 0 };
     for (int i = 0; i < size; ++i) {
         int j = int(arr[i] - 'a');
-        count[j]++;
+        ++count[j];
     }
     int i = 0, j = 0;
-    while (j < different_elements_quantity) {
+    while (j <= different_elements_quantity) {
         if (count[j] > 0) {
             arr[i] = char(int('a') + j);
             ++i;
-            count[j]--;
+            --count[j];
         }
-        else {
-            ++j;
-        }
+        else ++j;
     }
 }
 
@@ -39,23 +37,27 @@ void merge_sort(int* arr, int size) {
 
 }
 
-void split(std::string& user_input, int* arr) {
+template<typename T>
+void split(std::string& user_input, T* arr) {
     int current_index = 0;
     std::string token;
     std::stringstream ss(user_input);
     while (getline(ss, token, ' ')) {
-        arr[current_index] = stoi(token);
+        std::stringstream conv;
+        conv << token;
+        T converted_token;
+        conv >> converted_token;
+        arr[current_index] = converted_token;
         ++current_index;
     }
 }
 
-template< //I'll have to rewrite all this shit fuck thiiiiiiiiiiiiiiiiiiiiiis!
-void task(std::function<void(int* arr, const int size)> sorting_algorithm) {
-    int arr[1000] = { 0 };
+template<typename T>
+void task(std::function<void(T* arr, const int size)> sorting_algorithm) {
+    T arr[1000] = { 0 };
 
     std::string user_input;
     getline(std::cin, user_input);
-    std::cout << user_input << '\n';
 
     split(user_input, arr);
 

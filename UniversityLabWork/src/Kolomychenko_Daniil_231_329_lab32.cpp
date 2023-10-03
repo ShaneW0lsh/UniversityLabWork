@@ -6,7 +6,8 @@ static void task2();
 static void task3();
 static void task4();
 
-static void custom_sort(int* arr, int length);
+static void custom_sort1(int* arr, int length);
+static void custom_sort2(int* arr, int length);
 int even_position_sum(int number);
 
 int* user_array = NULL;

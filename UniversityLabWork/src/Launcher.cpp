@@ -5,5 +5,5 @@ void lab32();
 
 int main()
 {
-    lab2();
+    lab32();
 }

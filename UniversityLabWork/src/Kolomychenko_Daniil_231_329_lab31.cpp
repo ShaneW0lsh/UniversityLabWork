@@ -168,4 +168,6 @@ void merge_sorted_arrays(int* arr, int l, int m, int r) {
             ++j;
         }
     }
+    delete[] temp_left;
+    delete[] temp_right;
 }

@@ -12,7 +12,7 @@ void split(std::string& user_input, int& sum, int& number);
 
 void lab2() {
 	while (true) {
-		std::cout << "Enter 1 to print number triangle\n2 to print n'th line of pascal triangle\n3 to find average\n";
+		std::cout << "Enter 1 to print number triangle\n2 to print n'th line of pascal triangle\n3 to find average\n4 to exit the menu\n";
 		int user_input;
 		std::cin >> user_input;
 		std::cin.ignore();

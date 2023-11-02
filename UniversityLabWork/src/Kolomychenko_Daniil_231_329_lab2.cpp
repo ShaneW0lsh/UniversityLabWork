@@ -8,7 +8,7 @@ static void task1();
 static void task2();
 static void task3();
 
-void split(std::string& user_input, int& sum, int& number);
+static void split(std::string& user_input, int& sum, int& number);
 
 void lab2() {
 	while (true) {
@@ -55,7 +55,7 @@ static void task3() {
 	std::cout << 1.0 * sum / number << std::endl;
 }
 
-void split(std::string& user_input, int& sum, int& number) {
+static void split(std::string& user_input, int& sum, int& number) {
 	int current_index = 0;
 	std::string token;
 	std::stringstream ss(user_input);

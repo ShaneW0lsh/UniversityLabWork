@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <functional>
 #include <string>
 #include <sstream>
@@ -12,7 +12,7 @@ void merge_sort_recursion(int* arr, int l, int r);
 void merge_sorted_arrays(int* arr, int l, int m, int r);
 
 template<typename T>
-void split(std::string& user_input, T* arr);
+static int split(std::string& user_input, T* arr);
 
 static void task1();
 static void task2();
@@ -20,6 +20,7 @@ static void task3();
 
 void lab31() {
     while (true) {
+        std::cout << "Enter 1 to test bubble sort, 2 to test counting sort, 3 to test merge sort and 4 to quit: ";
         int user_input;
         std::cin >> user_input;
         std::cin.ignore();
@@ -42,12 +43,13 @@ void lab31() {
 static void task1() {
     int arr[1000] = { 0 };
 
+    std::cout << "Enter int array: ";
     std::string user_input;
     getline(std::cin, user_input);
 
-    split<int>(user_input, arr);
+    int last_index = split<int>(user_input, arr);
 
-    bubble_sort(arr, 1000);
+    bubble_sort(arr, last_index);
 
     for (int i = 0; i < 1000; ++i)
         std::cout << arr[i] << ' ';
@@ -57,12 +59,13 @@ static void task1() {
 static void task2() {
     char arr[1000] = { '0' };
 
+    std::cout << "Enter char array: ";
     std::string user_input;
     getline(std::cin, user_input);
 
-    split<char>(user_input, arr);
+    int last_index = split<char>(user_input, arr);
 
-    count_sort(arr, 1000);
+    count_sort(arr, last_index);
 
     for (int i = 0; i < 1000; ++i)
         std::cout << arr[i] << ' ';
@@ -72,12 +75,13 @@ static void task2() {
 static void task3() {
     int arr[1000] = { 0 };
 
+    std::cout << "Enter int array: ";
     std::string user_input;
     getline(std::cin, user_input);
 
-    split<int>(user_input, arr);
+    int last_index = split<int>(user_input, arr);
 
-    merge_sort(arr, 1000);
+    merge_sort(arr, last_index);
 
     for (int i = 0; i < 1000; ++i)
         std::cout << arr[i] << ' ';
@@ -85,7 +89,7 @@ static void task3() {
 }
 
 template<typename T>
-void split(std::string& user_input, T* arr) {
+static int split(std::string& user_input, T* arr) {
     int current_index = 0;
     std::string token;
     std::stringstream ss(user_input);
@@ -97,6 +101,7 @@ void split(std::string& user_input, T* arr) {
         arr[current_index] = converted_token;
         ++current_index;
     }
+    return current_index;
 }
 
 void count_sort(char* arr, const int size) {
@@ -144,30 +149,26 @@ void merge_sort_recursion(int* arr, int l, int r) {
 }
 
 void merge_sorted_arrays(int* arr, int l, int m, int r) {
-    int left_length = m - l + 1;
-    int right_length = r - m;
+    int l2 = m + 1;
 
-    int* temp_left = new int[left_length];
-    int* temp_right = new int[right_length];
+    if (arr[m] <= arr[l2]) return;
 
-    for (int i = 0; i < left_length; ++i)
-        temp_left[i] = arr[l + i];
-
-    for (int i = 0; i < right_length; ++i)
-        temp_right[i] = arr[m + 1 + i];
-
-    int i, j, k;
-    for (i = 0, j = 0, k = l; k <= r; ++k) {
-        if ((i < left_length) &&
-            (j >= right_length || temp_left[i] <= temp_right[j])) {
-            arr[k] = temp_left[i];
-            ++i;
-        }
+    while (l <= m && l2 <= r) {
+        if (arr[l] <= arr[l2]) 
+            l++;
         else {
-            arr[k] = temp_right[j];
-            ++j;
+            int value = arr[l2];
+            int index = l2;
+
+            while (index != l) {
+                arr[index] = arr[index - 1];
+                index--;
+            }
+            arr[l] = value;
+
+            l++;
+            m++;
+            l2++;
         }
     }
-    delete[] temp_left;
-    delete[] temp_right;
 }

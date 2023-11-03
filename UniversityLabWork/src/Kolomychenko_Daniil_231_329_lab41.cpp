@@ -1,7 +1,22 @@
 #include <iostream>
+#include <vector>
+
+struct SubstringIndices {
+    int* arr;
+    int length;
+    SubstringIndices(int* arr, int length)
+        :arr(arr), length(length) {}
+};
 
 bool palindrome(char* str);
+SubstringIndices find_substring(const char* str, const char* substr);
+bool equals(const char* str1, const char* str2);
+void print_string(const char* str);
+void encrypt(char* str_to_encrypt, int key);
 static void task1();
+static void task2();
+static void task3();
+static void task4();
 
 void lab41() {
     while (true) {
@@ -13,10 +28,13 @@ void lab41() {
                 task1();
                 break;
             case 2:
+                task2();
                 break;
             case 3:
+                task3();
                 break;
             case 4:
+                task4();
                 break;
             case 5:
                 return;
@@ -51,4 +69,117 @@ bool palindrome(char* str) {
             return false;
     }
     return true;
+}
+
+static void task2() {
+    char str[256], substr[256];
+    printf("Enter a string(up to 255 characters): ");
+    fgets(str, sizeof(str), stdin);
+    str[strlen(str) - 1] = '\0';
+    printf("Enter a substring(up to 255 characters): ");
+    fgets(substr, sizeof(substr), stdin);
+    substr[strlen(substr) - 1] = '\0';
+
+    if (strlen(str) < strlen(substr)) {
+        std::cout << "Invalid input\n";
+        return;
+    }
+
+    SubstringIndices out = find_substring(str, substr);
+    for (int i = 0; i < out.length; ++i) {
+        std::cout << out.arr[i] << ' ';
+    }
+    std::cout << '\n';
+}
+
+SubstringIndices find_substring(const char* str, const char* substr) {
+    int length = strlen(str);
+    int* tmp_array = new int[length];
+    for (int i = 0; i < length; ++i) tmp_array[i] = -1;
+    int return_array_length = 0;
+
+    char* current_substr = new char[strlen(substr)+1];
+    current_substr[strlen(substr)] = '\0';
+    for (int i = 0; i < length-strlen(substr)+1; ++i) {
+        for (int j = 0; j < strlen(substr); ++j)
+            current_substr[j] = str[i + j];
+        
+        if (equals(current_substr, substr)) {
+            tmp_array[return_array_length] = i;
+            ++return_array_length;
+        }
+    }
+
+    int* return_array = new int[return_array_length];
+    int k = 0;
+    for (int i = 0; i < length; ++i) {
+        if (tmp_array[i] > -1) {
+            return_array[k] = tmp_array[i];
+            ++k;
+        }
+    }
+    return SubstringIndices(return_array, return_array_length);
+}
+
+bool equals(const char* str1, const char* str2) {
+    if (strlen(str1) != strlen(str2))
+        return false;
+
+    for (int i = 0; i < strlen(str1); ++i)
+        if (str1[i] != str2[i]) return false;
+
+    return true;
+}
+
+void print_string(const char* str) {
+    for (int i = 0; i < strlen(str); ++i)
+        std::cout << str[i];
+    std::cout << '\n';
+}
+
+static void task3() {
+    char buffer[256];
+    printf("Enter a string to encypt(up to 255 characters): ");
+    fgets(buffer, sizeof(buffer), stdin);
+    buffer[strlen(buffer) - 1] = '\0';
+    int key;
+    std::cout << "Enter the key: ";
+    std::cin >> key;
+    encrypt(buffer, key);
+    print_string(buffer);
+}
+
+void encrypt(char* str_to_encrypt, int key) {
+    for (int i = 0; i < strlen(str_to_encrypt); ++i) {
+        if (str_to_encrypt[i] != ' ')
+            str_to_encrypt[i] += key;
+    }
+}
+
+static void task4() {
+    char buffer[256];
+    printf("Enter a string to encypt(up to 255 characters): ");
+    fgets(buffer, sizeof(buffer), stdin);
+    buffer[strlen(buffer) - 1] = '\0';
+    print_string(buffer);
+    bool is_open = false;
+    char current_string[256];
+    int length = 0;
+    for (int i = 0; i < strlen(buffer); ++i) {
+        if (buffer[i] == '"') {
+            if (is_open == true) {
+                is_open = false;
+                current_string[length - 1] = '\0';
+                length = 0;
+                print_string(current_string);
+            }
+            else if (is_open == false) is_open = true;
+        }
+        else {
+            if (is_open) {
+                current_string[length] = buffer[i];
+                ++length;
+            }
+        }
+    }
 }

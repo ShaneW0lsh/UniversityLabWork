@@ -42,5 +42,8 @@
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab52.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab7.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

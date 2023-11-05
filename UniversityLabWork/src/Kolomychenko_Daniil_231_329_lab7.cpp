@@ -19,7 +19,7 @@ void quickSort(std::vector<T>& arr, std::function<bool(const T&, const T&)> comp
         for (int i = low; i < high; ++i) {
             if (compare(arr[i], pivotValue)) {
                 std::swap(arr[i], arr[pivotIndex]);
-                ++pivotIndex; what the fuck theu rehtu srlohteu 
+                ++pivotIndex; 
             }
         }
         std::swap(arr[pivotIndex], arr[high]);

@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 
 struct SubstringIndices {
@@ -54,6 +54,8 @@ static void task1() {
     else std::cout << "It's not a palindrome!\n";
 }
 
+// на вход подается массив из символов, возвращает тру или фолз в зависимости от того 
+// является данный массив палиндромом или нет
 bool palindrome(char* str) {
     for (int i = 0, j = strlen(str) - 1; i < j; ++i, --j) {
         if (str[i] == ' ') ++i;
@@ -92,6 +94,9 @@ static void task2() {
     std::cout << '\n';
 }
 
+// на вход подается два массива из чаров, которые представляют из себя основную строку и 
+// подстроку. возвращается структура, которая в себе содержит массив из всех индексов 
+// с позиции которых начинается подстрока а также длина данного массива.
 SubstringIndices find_substring(const char* str, const char* substr) {
     int length = strlen(str);
     int* tmp_array = new int[length];
@@ -121,6 +126,8 @@ SubstringIndices find_substring(const char* str, const char* substr) {
     return SubstringIndices(return_array, return_array_length);
 }
 
+// на вход подается два массива, возвращается тру или фолз в зависимости от того равны данные массивы
+// или нет. равенство в данном случае опеределяется как полное совпадение содержимого данных массивов
 bool equals(const char* str1, const char* str2) {
     if (strlen(str1) != strlen(str2))
         return false;
@@ -131,6 +138,7 @@ bool equals(const char* str1, const char* str2) {
     return true;
 }
 
+// выводит массив из чаров, переданный как аргумент
 void print_string(const char* str) {
     for (int i = 0; i < strlen(str); ++i)
         std::cout << str[i];
@@ -149,6 +157,7 @@ static void task3() {
     print_string(buffer);
 }
 
+// передается ключ и строка для зашифровки. к каждому элементу массива добавляется данных ключ
 void encrypt(char* str_to_encrypt, int key) {
     for (int i = 0; i < strlen(str_to_encrypt); ++i) {
         if (str_to_encrypt[i] != ' ')

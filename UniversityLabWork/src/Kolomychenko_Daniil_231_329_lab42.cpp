@@ -8,12 +8,12 @@ std::string file_path(const std::string& file_path_full);
 char file_disk(const std::string& file_path_full);
 bool file_rename(std::string& file_path_full, const std::string& new_name);
 bool file_copy(const std::string& file_path_full);
-void task1();
-void task2();
-void task3();
-void task4();
-void task5();
-void task6();
+static void task1();
+static void task2();
+static void task3();
+static void task4();
+static void task5();
+static void task6();
 
 void lab42() {
     while (true) {
@@ -45,35 +45,35 @@ void lab42() {
     }
 }
 
-void task1() {
+static void task1() {
     std::cout << "Enter file path: ";
     std::string path;
     std::cin >> path;
     std::cout << "File format is: " << file_format(path) << std::endl;
 }
 
-void task2() {
+static void task2() {
     std::cout << "Enter file path: ";
     std::string path;
     std::cin >> path;
     std::cout << "File name is: " << file_name(path) << std::endl;
 }
 
-void task3() {
+static void task3() {
     std::cout << "Enter file path: ";
     std::string path;
     std::cin >> path;
     std::cout << "File path is: " << file_path(path) << std::endl;
 }
 
-void task4() {
+static void task4() {
     std::cout << "Enter file path: ";
     std::string path;
     std::cin >> path;
     std::cout << "File disk is: " << file_disk(path) << std::endl;
 }
 
-void task5() {
+static void task5() {
     std::cout << "Enter file path and new name for the file: ";
     std::string path, new_name;
     std::cin >> path >> new_name;
@@ -81,7 +81,7 @@ void task5() {
         std::cout << "New file path: " << path << std::endl;
 }
 
-void task6() {
+static void task6() {
     std::cout << "Enter file path: ";
     std::string path;
     std::cin >> path;

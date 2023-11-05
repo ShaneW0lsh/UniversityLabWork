@@ -4,8 +4,9 @@ void lab31();
 void lab32();
 void lab41();
 void lab42();
+void lab51();
 
 int main()
 {
-    lab42();
+    lab51();
 }

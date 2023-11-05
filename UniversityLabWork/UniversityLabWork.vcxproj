@@ -135,6 +135,9 @@
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab42.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab51.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab52.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab53.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab54.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab61.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab7.cpp" />
     <ClCompile Include="src\Launcher.cpp" />
   </ItemGroup>

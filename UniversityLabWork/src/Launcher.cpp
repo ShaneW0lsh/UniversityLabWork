@@ -13,5 +13,5 @@ void lab7();
 
 int main()
 {
-    lab54();
+    lab53();
 }

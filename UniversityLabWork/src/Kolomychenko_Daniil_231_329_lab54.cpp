@@ -23,7 +23,7 @@ private:
     int y;
 };
 
-class Circle : public Position {
+class Circle : public virtual Position {
 public:
     Circle(int x, int y, int radius) : Position(x, y), radius(radius) {}
 
@@ -39,7 +39,7 @@ private:
     int radius;
 };
 
-class Square : public Position {
+class Square : public virtual Position {
 public:
     Square(int x, int y, int side) : Position(x, y), side(side) {}
 
@@ -58,14 +58,6 @@ private:
 class CircleInSquare : public Circle, public Square {
 public:
     CircleInSquare(int x, int y, int radius) : Circle(x, y, radius), Square(x, y, radius * 2) {}
-
-    double getPerimeter() const {
-        return Square::getPerimeter();
-    }
-
-    double getArea() const {
-        return Square::getArea();
-    }
 };
 
 void lab54() {
@@ -78,6 +70,6 @@ void lab54() {
     std::cout << "Square Area: " << square.getArea() << std::endl;
 
     CircleInSquare circleInSquare(0, 0, 5);
-    std::cout << "Circle in Square Perimeter: " << circleInSquare.getPerimeter() << std::endl;
-    std::cout << "Circle in Square Area: " << circleInSquare.getArea() << std::endl;
+    std::cout << "Circle in Square Perimeter: " << circleInSquare.Square::getPerimeter() << std::endl;
+    std::cout << "Circle in Square Area: " << circleInSquare.Square::getArea() << std::endl;
 }

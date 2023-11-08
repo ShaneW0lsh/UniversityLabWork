@@ -1,17 +1,8 @@
-void lab1();
-void lab2();
-void lab31();
-void lab32();
-void lab41();
-void lab42();
-void lab51();
-void lab52();
-void lab53();
-void lab54();
-void lab61();
-void lab7();
+#include "Kolomychenko_Daniil_231_329_lab41.h"
+#include "Kolomychenko_Daniil_231_329_lab42.h"
+#include "Kolomychenko_Daniil_231_329_lab51.h"
 
 int main()
 {
-    lab53();
+    lab51::launch();
 }

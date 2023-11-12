@@ -147,6 +147,9 @@
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab41.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab42.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab51.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab52.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab53.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab7.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,168 +1,220 @@
-#include <iostream>
+#include "Kolomychenko_Daniil_231_329_lab52.h"
 
-static class Matrix {
-private:
-    int rows;
-    int columns;
-    int size = NULL;
-    double* elements;
+template<typename T>
+void lab52::init_array(T* arr, int size, T value)
+{
+    for (int i = 0; i < size; ++i)
+        arr[i] = value;
+}
 
-public:
-    Matrix(int rows, int columns)
-        : rows(rows), columns(columns) {
-        elements = new double[rows * columns];
-        for (int i = 0; i < rows * columns; ++i) elements[i] = 0.0;
-        if (rows == columns) size = rows;
+lab52::Matrix::Matrix(int rows, int columns)
+    : rows(rows), columns(columns)
+{
+    elements = new double[rows * columns];
+    init_array<double>(elements, rows * columns, 0.0);
+}
+
+lab52::Matrix::Matrix(int rows, int columns, double* elements)
+    : rows(rows), columns(columns), elements(elements) {}
+
+lab52::Matrix::Matrix(const Matrix& other)
+    : rows(other.rows), columns(other.columns)
+{
+    elements = new double[rows * columns];
+    for (int i = 0; i < rows * columns; ++i)
+        elements[i] = other.elements[i];
+}
+
+lab52::Matrix::~Matrix()
+{
+    delete[] elements;
+}
+
+lab52::Matrix lab52::Matrix::sum(const Matrix& other) const
+{
+    Matrix result(rows, columns);
+    for (int i = 0; i < rows * columns; ++i)
+        result.elements[i] = elements[i] + other.elements[i];
+    return result;
+}
+
+//lab52::Matrix lab52::Matrix::sum(const double* arr, int size) const
+//{
+//
+//}
+
+lab52::Matrix lab52::Matrix::mult(const Matrix& other) const
+{
+    if (columns != other.rows) {
+        std::cout << "Number of columns in the first matrix must be equal to the number of rows in the second matrix!\n";
+        return Matrix(0, 0);
     }
 
-    Matrix(int rows, int columns, double* elements)
-        : rows(rows), columns(columns), elements(elements) {
-        if (rows == columns) size = rows;
-    }
+    Matrix result(rows, other.columns);
 
-    ~Matrix() { delete[] elements; }
-
-    void sum(const Matrix* other) {
-        for (int i = 0; i < rows * columns; ++i)
-            this->elements[i] += other->elements[i];
-    }
-
-    void sum(const Matrix* other, int size) {}
-
-    void mult(const Matrix* other) {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < other->columns; ++j) {
-                this->elements[i * other->columns + j] = 0;
-                for (int k = 0; k < columns; ++k) {
-                    this->elements[i * other->columns + j] += elements[i * columns + k]
-                        * other->elements[k * other->columns + j];
-                }
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < other.columns; ++j) {
+            int sum = 0;
+            for (int k = 0; k < columns; ++k) {
+                sum += elements[i * columns + k] * other.elements[k * columns + j];
             }
+            result.elements[i * columns + j] = sum;
         }
     }
 
-    void mult(const Matrix* other, int size) {}
+    return result;
+}
 
-    double trace() const {
-        double traceValue = 0;
-        for (int i = 0; i < rows; ++i) {
-            traceValue += elements[i * columns + i];
-        }
-        return traceValue;
+//lab52::Matrix lab52::Matrix::mult(const double* arr, int size) const
+//{
+//    return NULL;
+//}
+
+double lab52::Matrix::trace() const
+{
+    double traceValue = 0;
+    for (int i = 0; i < rows; ++i) {
+        traceValue += elements[i * columns + i];
+    }
+    return traceValue;
+}
+
+double lab52::Matrix::determinant() const
+{
+    if (!this->is_square()) {
+        std::cout << "This is not a square matrix!\n";
+        return NULL;
     }
 
-    double& at(int i, int j) {
-        return elements[i * size + j];
+    if (get_size() == 1) return *elements;
+
+    double result = 0.0;
+    for (int i = 0; i < get_size(); ++i) {
+        if (i % 2 == 0)
+            result += elements[i] * minor(0, i).determinant();
+        else
+            result -= elements[i] * minor(0, i).determinant();
+        std::cout << elements[i] * minor(0, i).determinant() << std::endl;
     }
 
-    void swapRows(int row1, int row2) {
-        for (int i = 0; i < size; ++i) {
-            double temp = at(row1, i);
-            at(row1, i) = at(row2, i);
-            at(row2, i) = temp;
+    return result;
+}
+
+lab52::Matrix lab52::Matrix::minor(int row, int col) const
+{
+    int minor_size = get_size() - 1;
+    Matrix result(minor_size, minor_size);
+
+    int minor_row = 0, minor_col = 0;
+    for (int i = 0; i < get_size(); ++i) {
+        if (i == row) continue;
+        for (int j = 0; j < get_size(); ++j) {
+            if (j == col) continue;
+            result.elements[minor_row * minor_size + minor_col]
+                = elements[i * get_size() + j];
+            ++minor_col;
         }
+        minor_col = 0;
+        ++minor_row;
     }
 
-    // Function to calculate determinant using Gaussian elimination (LU decomposition)
-    double determinant() const {
-        if (columns != rows) {
-            std::cout << "Can't calculate determinant for not quadratic matrix!\n";
-            return NULL;
-        }
-        double det = 1;
-        Matrix temp(rows, columns);
+    return result;
+}
 
-        for (int i = 0; i < size * size; ++i) {
-            temp.elements[i] = elements[i];
-        }
-
-        for (int i = 0; i < size - 1; ++i) {
-            if (temp.at(i, i) == 0) {
-                for (int j = i + 1; j < size; ++j) {
-                    if (temp.at(j, i) != 0) {
-                        temp.swapRows(i, j);
-                        det *= -1;
-                        break;
-                    }
-                }
-            }
-
-            if (temp.at(i, i) == 0) {
-                return 0;
-            }
-
-            for (int j = i + 1; j < size; ++j) {
-                double ratio = temp.at(j, i) / temp.at(i, i);
-                for (int k = i; k < size; ++k) {
-                    temp.at(j, k) -= ratio * temp.at(i, k);
-                }
-            }
-        }
-
-        for (int i = 0; i < size; ++i) {
-            det *= temp.at(i, i);
-        }
-
-        return det;
-    }
-
-    void mult_by_num(double num) {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < columns; ++j) {
-                elements[i * columns + j] *= num;
-            }
+void lab52::Matrix::mult_by_num(double num)
+{
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            elements[i * columns + j] *= num;
         }
     }
+}
 
-    void input() {
-        std::cout << "Enter matrix elements:" << std::endl;
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < columns; ++j) {
-                std::cin >> elements[i * columns + j];
-            }
+void lab52::Matrix::input()
+{
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            std::cin >> elements[i * columns + j];
         }
     }
+}
 
-    void input(int i, int j) {
-        std::cout << "Enter matrix elements:" << std::endl;
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < columns; ++j) {
-                std::cin >> elements[i * columns + j];
-            }
+// in those two functions there might be some troubles
+void lab52::Matrix::input(int i, int j)
+{
+    rows = i;
+    columns = j;
+    elements = new double[rows * columns];
+    
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            std::cin >> elements[i * columns + j];
         }
     }
+}
 
-    void input(int i, int j, double* arr) {
-        for (int ii = 0; ii < i; ++ii) {
-            for (int jj = 0; jj < j; ++jj) {
-                elements[ii * j + jj] = arr[ii * j + jj];
-            }
+void lab52::Matrix::input(int i, int j, double* arr)
+{
+    rows = i;
+    columns = j;
+    elements = new double[rows * columns];
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            elements[i * columns + j] = arr[i * columns + j];
         }
     }
+}
 
-    void print() const {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < columns; ++j) {
-                std::cout << elements[i * columns + j] << ' ';
-            }
-            std::cout << std::endl;
+void lab52::Matrix::print() const 
+{
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            std::cout << elements[i * columns + j] << ' ';
         }
+        std::cout << std::endl;
     }
+}
 
-    int get_columns() {
-        return columns;
-    }
+int lab52::Matrix::get_columns() const
+{
+    return columns;
+}
 
-    int get_rows() {
+int lab52::Matrix::get_rows() const
+{
+    return rows;
+}
+
+double lab52::Matrix::get_element(int i, int j) const
+{
+    return elements[i * columns + j];
+}
+
+bool lab52::Matrix::is_square() const { return rows == columns; }
+
+int lab52::Matrix::get_size() const
+{
+    if (is_square())
         return rows;
+    else {
+        std::cout << "Not a square!\n";
+        return NULL;
     }
+}
 
-    double get_element(int i, int j) {
-        return elements[i * columns + j];
-    }
-};
+bool lab52::Matrix::equals(Matrix& other)
+{
+    if (rows != other.rows or columns != other.columns)
+        return false;
+    for (int i = 0; i < other.columns * other.rows; ++i)
+        if (elements[i] != other.elements[i])
+            return false;
+    return true;
+}
 
-void lab52() {
+void lab52::launch()
+{
     Matrix m(3, 3);
     double* other = new double[2 * 2];
     other[0] = 1;

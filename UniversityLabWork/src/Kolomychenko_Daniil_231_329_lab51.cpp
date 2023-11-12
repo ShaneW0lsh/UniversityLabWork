@@ -1,49 +1,78 @@
 #include "Kolomychenko_Daniil_231_329_lab51.h"
 
-void lab51::launch() {
-    Matrix m(3, 3);
-    double* el = new double[9]{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    Matrix m2(3, 3, el);
+void lab51::launch()
+{
+    Matrix m1(3, 3, new double[9] {
+        11, 2, 3, 
+        4, -5, 6, 
+        7, 8, -9
+    });
+    std::cout << "\nDeterminant:\n";
+    std::cout << m1.determinant() << std::endl;
+}
+
+template<typename T>
+void lab51::init_array(T* arr, int size, T value) 
+{
+    for (int i = 0; i < size; ++i)
+        arr[i] = value;
 }
 
 lab51::Matrix::Matrix(int rows, int columns)
-    :rows(rows), columns(columns), size(rows)
+    : rows(rows), columns(columns)
 {
     elements = new double[rows * columns];
-    for (int i = 0; i < rows * columns; ++i) elements[i] = 0.0;
-    std::cout << "First constructor did link\n";
+    init_array<double>(elements, rows * columns, 0.0);
 }
 
 lab51::Matrix::Matrix(int rows, int columns, double* elements)
-    :rows(rows), columns(columns), elements(elements), size(rows) {
-    std::cout << "Second constructor did link\n";
+    : rows(rows), columns(columns), elements(elements) {}
+
+lab51::Matrix::Matrix(const Matrix& other)
+    : rows(other.rows), columns(other.columns) 
+{
+    elements = new double[rows * columns];
+    for (int i = 0; i < rows * columns; ++i)
+        elements[i] = other.elements[i];
 }
 
-lab51::Matrix::~Matrix() {
+lab51::Matrix::~Matrix() 
+{
     delete[] elements;
 }
 
-lab51::Matrix lab51::Matrix::sum(const Matrix& other) {
+lab51::Matrix lab51::Matrix::sum(const Matrix& other) const
+{
     Matrix result(rows, columns);
     for (int i = 0; i < rows * columns; ++i)
         result.elements[i] = elements[i] + other.elements[i];
     return result;
 }
 
-// rewrite
-void lab51::Matrix::mult(const Matrix* other) {
+lab51::Matrix lab51::Matrix::mult(const Matrix& other) const
+{
+    if (columns != other.rows) {
+        std::cout << "Number of columns in the first matrix must be equal to the number of rows in the second matrix!\n";
+        return Matrix(0, 0);
+    }
+
+    Matrix result(rows, other.columns);
+
     for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < other->columns; ++j) {
-            this->elements[i * other->columns + j] = 0;
+        for (int j = 0; j < other.columns; ++j) {
+            int sum = 0;
             for (int k = 0; k < columns; ++k) {
-                this->elements[i * other->columns + j] += elements[i * columns + k]
-                    * other->elements[k * other->columns + j];
+                sum += elements[i * columns + k] * other.elements[k * columns + j];
             }
+            result.elements[i * columns + j] = sum;
         }
     }
+
+    return result;
 }
 
-double lab51::Matrix::trace() const {
+double lab51::Matrix::trace() const 
+{
     double traceValue = 0;
     for (int i = 0; i < rows; ++i) {
         traceValue += elements[i * columns + i];
@@ -51,62 +80,50 @@ double lab51::Matrix::trace() const {
     return traceValue;
 }
 
+double lab51::Matrix::determinant() const
+{
+    if (!this->is_square()) {
+        std::cout << "This is not a square matrix!\n";
+        return NULL;
+    }
 
-double& lab51::Matrix::at(int i, int j) {
-    return elements[i * size + j];
+    if (get_size() == 1) return *elements;
+
+    double result = 0.0;
+    for (int i = 0; i < get_size(); ++i) {
+        if (i % 2 == 0) 
+            result += elements[i] * minor(0, i).determinant();
+        else 
+            result -= elements[i] * minor(0, i).determinant();
+        std::cout << elements[i] * minor(0, i).determinant() << std::endl;
+    }
+
+    return result;
 }
 
+lab51::Matrix lab51::Matrix::minor(int row, int col) const 
+{
+    int minor_size = get_size() - 1;
+    Matrix result(minor_size, minor_size);
 
-void lab51::Matrix::swapRows(int row1, int row2) {
-    for (int i = 0; i < size; ++i) {
-        double temp = at(row1, i);
-        at(row1, i) = at(row2, i);
-        at(row2, i) = temp;
+    int minor_row = 0, minor_col = 0;
+    for (int i = 0; i < get_size(); ++i) {
+        if (i == row) continue;
+        for (int j = 0; j < get_size(); ++j) {
+            if (j == col) continue;
+            result.elements[minor_row * minor_size + minor_col]
+                = elements[i * get_size() + j];
+            ++minor_col;
+        }
+        minor_col = 0;
+        ++minor_row;
     }
+
+    return result;
 }
 
-// Function to calculate determinant using Gaussian elimination (LU decomposition)
-double lab51::Matrix::determinant() const {
-    double det = 1;
-    Matrix temp(rows, columns);
-
-    for (int i = 0; i < size * size; ++i) {
-        temp.elements[i] = elements[i];
-    }
-
-    for (int i = 0; i < size - 1; ++i) {
-        if (temp.at(i, i) == 0) {
-            for (int j = i + 1; j < size; ++j) {
-                if (temp.at(j, i) != 0) {
-                    temp.swapRows(i, j);
-                    det *= -1; // Swap rows changes the sign of the determinant
-                    break;
-                }
-            }
-        }
-
-        if (temp.at(i, i) == 0) {
-            return 0; // Matrix is singular, determinant is 0
-        }
-
-        for (int j = i + 1; j < size; ++j) {
-            double ratio = temp.at(j, i) / temp.at(i, i);
-            for (int k = i; k < size; ++k) {
-                temp.at(j, k) -= ratio * temp.at(i, k);
-            }
-        }
-    }
-
-    // Calculate determinant by multiplying diagonal elements
-    for (int i = 0; i < size; ++i) {
-        det *= temp.at(i, i);
-    }
-
-    return det;
-}
-
-
-void lab51::Matrix::mult_by_num(double num) {
+void lab51::Matrix::mult_by_num(double num) 
+{
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             elements[i * columns + j] *= num;
@@ -114,9 +131,8 @@ void lab51::Matrix::mult_by_num(double num) {
     }
 }
 
-
-void lab51::Matrix::input() {
-    std::cout << "Enter matrix elements:" << std::endl;
+void lab51::Matrix::input()
+{
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             std::cin >> elements[i * columns + j];
@@ -124,8 +140,8 @@ void lab51::Matrix::input() {
     }
 }
 
-
-void lab51::Matrix::print() const {
+void lab51::Matrix::print() const 
+{
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             std::cout << elements[i * columns + j] << ' ';
@@ -134,15 +150,33 @@ void lab51::Matrix::print() const {
     }
 }
 
+int lab51::Matrix::get_columns() const { return columns; }
 
-int lab51::Matrix::get_columns() {
-    return columns;
+int lab51::Matrix::get_rows() const { return rows; }
+
+double lab51::Matrix::get_element(int i, int j) const
+{ 
+    return elements[i * columns + j]; 
 }
 
-int lab51::Matrix::get_rows() {
-    return rows;
+bool lab51::Matrix::is_square() const { return rows == columns; }
+
+int lab51::Matrix::get_size() const
+{
+    if (is_square())
+        return rows;
+    else {
+        std::cout << "Not a square!\n";
+        return NULL;
+    }
 }
 
-double lab51::Matrix::get_element(int i, int j) {
-    return elements[i * columns + j];
+bool lab51::Matrix::equals(Matrix& other)
+{
+    if (rows != other.rows or columns != other.columns)
+        return false;
+    for (int i = 0; i < other.columns * other.rows; ++i)
+        if (elements[i] != other.elements[i])
+            return false;
+    return true;
 }

@@ -65,5 +65,14 @@
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab51.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab52.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab53.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

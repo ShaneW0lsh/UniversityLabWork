@@ -37,20 +37,20 @@ void lab7::launch()
 
     // Сортировка по фамилии
     quick_sort<Person>(people, 0, people.size() - 1, [](const Person& a, const Person& b)
-    { 
+    {
         return a.surname < b.surname;
     });
 
     std::cout << "Sorted by Surname:" << std::endl;
     for (const auto& person : people) {
-        std::cout << person.surname << " " << 
+        std::cout << person.surname << " " <<
             person.name << " " << person.age << std::endl;
     }
 
     // Сортировка по имени
     quick_sort<Person>(people, 0, people.size() - 1, [](const Person& a, const Person& b)
-    { 
-        return a.name < b.name; 
+    {
+        return a.name < b.name;
     });
 
     std::cout << "Sorted by Name:" << std::endl;
@@ -59,9 +59,9 @@ void lab7::launch()
     }
 
     // Сортировка по возрасту
-    quick_sort<Person>(people, 0, people.size()-1, [](const Person& a, const Person& b)
+    quick_sort<Person>(people, 0, people.size() - 1, [](const Person& a, const Person& b)
     {
-        return a.age < b.age; 
+        return a.age < b.age;
     });
 
     std::cout << "Sorted by Age:" << std::endl;
@@ -73,8 +73,8 @@ void lab7::launch()
         100, 1, 3, 5, -1, 0, 10
     };
     quick_sort<int>(numbers, 0, numbers.size() - 1, [](const int& a, const int& b)
-    { 
-        return a < b; 
+    {
+        return a < b;
     });
     for (const int& number : numbers) {
         std::cout << number << ' ';

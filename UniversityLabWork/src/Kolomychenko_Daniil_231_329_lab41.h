@@ -8,7 +8,9 @@ namespace lab41 {
         int* arr;
         int length;
         SubstringIndices(int* arr, int length)
-            :arr(arr), length(length) {}
+            :arr(arr), length(length)
+        {
+        }
     };
 
     void task1();

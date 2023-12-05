@@ -5,7 +5,7 @@
 namespace lab52 {
     template<typename T>
     void init_array(T* arr, int size, T value);
-    
+
     class Matrix {
     private:
         int rows;

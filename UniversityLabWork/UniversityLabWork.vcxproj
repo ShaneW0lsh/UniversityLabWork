@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,15 +140,27 @@
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab53.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab54.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab61.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab62.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab63.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab64.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab65.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab66.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab7.cpp" />
     <ClCompile Include="src\Launcher.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab63.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab64.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab41.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab42.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab51.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab52.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab53.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab54.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab61.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab62.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab65.h" />
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab66.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab7.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

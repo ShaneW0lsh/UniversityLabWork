@@ -54,6 +54,21 @@
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab54.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab62.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab64.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab65.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab66.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab63.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab41.h">
@@ -72,6 +87,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab53.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab54.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab61.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab62.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab65.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab66.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab63.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

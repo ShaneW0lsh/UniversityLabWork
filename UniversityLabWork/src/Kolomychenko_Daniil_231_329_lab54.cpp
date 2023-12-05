@@ -1,66 +1,64 @@
-#include <iostream>
-#include <cmath>
+#include "Kolomychenko_Daniil_231_329_lab54.h"
 
-class Position {
-public:
-    Position(int x = 0, int y = 0) : x(x), y(y) {}
+lab54::Position::Position(int x, int y)
+    : x(x), y(y)
+{
+}
 
-    void setPosition(int x, int y) {
-        this->x = x;
-        this->y = y;
-    }
+void lab54::Position::setPosition(int x, int y)
+{
+    this->x = x;
+    this->y = y;
+}
 
-    int getX() const {
-        return x;
-    }
+int lab54::Position::getX() const
+{
+    return x;
+}
 
-    int getY() const {
-        return y;
-    }
+int lab54::Position::getY() const
+{
+    return y;
+}
 
-private:
-    int x;
-    int y;
-};
+lab54::Circle::Circle(int x, int y, int radius)
+    : Position(x, y), radius(radius)
+{
+}
 
-class Circle : public virtual Position {
-public:
-    Circle(int x, int y, int radius) : Position(x, y), radius(radius) {}
+double lab54::Circle::getPerimeter() const
+{
+    return 2 * 3.14 * radius;
+}
 
-    double getPerimeter() const {
-        return 2 * 3.14 * radius;
-    }
+double lab54::Circle::getArea() const
+{
+    return 3.14 * radius * radius;
+}
 
-    double getArea() const {
-        return 3.14 * radius * radius;
-    }
+lab54::Square::Square(int x, int y, int side)
+    : Position(x, y), side(side)
+{
+}
 
-private:
-    int radius;
-};
+double lab54::Square::getPerimeter() const
+{
+    return 4 * side;
+}
 
-class Square : public virtual Position {
-public:
-    Square(int x, int y, int side) : Position(x, y), side(side) {}
+double lab54::Square::getArea() const
+{
+    return side * side;
+}
 
-    double getPerimeter() const {
-        return 4 * side;
-    }
+lab54::CircleInSquare::CircleInSquare(int x, int y, int radius)
+    : Circle(x, y, radius), Square(x, y, radius * 2)
+{
+}
 
-    double getArea() const {
-        return side * side;
-    }
 
-private:
-    int side;
-};
-
-class CircleInSquare : public Circle, public Square {
-public:
-    CircleInSquare(int x, int y, int radius) : Circle(x, y, radius), Square(x, y, radius * 2) {}
-};
-
-void lab54() {
+void lab54::launch()
+{
     Circle circle(0, 0, 5);
     std::cout << "Circle Perimeter: " << circle.getPerimeter() << std::endl;
     std::cout << "Circle Area: " << circle.getArea() << std::endl;

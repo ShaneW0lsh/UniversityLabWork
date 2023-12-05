@@ -1,6 +1,6 @@
 ﻿#include "Kolomychenko_Daniil_231_329_lab53.h"
 
-void lab53::init_array(int* arr, int size) 
+void lab53::init_array(int* arr, int size)
 {
     for (int i = 0; i < size; ++i) arr[i] = 0;
 }
@@ -24,13 +24,13 @@ lab53::TridiagonalMatrix::~TridiagonalMatrix()
 }
 
 void lab53::TridiagonalMatrix::input()
-{ 
-    std::cin >> *this; 
+{
+    std::cin >> *this;
 }
 
 void lab53::TridiagonalMatrix::print() const
-{ 
-    std::cout << *this; 
+{
+    std::cout << *this;
 }
 
 int lab53::TridiagonalMatrix::tr() const
@@ -82,10 +82,10 @@ lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator+(const TridiagonalMa
     for (int i = 0; i < size; ++i)
         result.data[i] = this->data[i] + other.data[i];
 
-    for (int i = 0; i < size-1; ++i)
+    for (int i = 0; i < size - 1; ++i)
         result.upper_diagonal[i] = this->upper_diagonal[i] + other.upper_diagonal[i];
 
-    for (int i = 0; i < size-1; ++i)
+    for (int i = 0; i < size - 1; ++i)
         result.lower_diagonal[i] = this->lower_diagonal[i] + other.lower_diagonal[i];
 
     return result;
@@ -107,7 +107,7 @@ lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator-(const TridiagonalMa
     return result;
 }
 
-lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator-() 
+lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator-()
 {
     TridiagonalMatrix result(size);
 
@@ -228,8 +228,6 @@ void lab53::launch()
 
     std::cout << "sum of those two matrices:\n";
     std::cout << m1 + m2 << std::endl;
-    std::cout << "Multiplication: \n";
-    (m1 * m2).print();
 
     std::cout << "m1 multiplied by 3:\n";
     std::cout << m1 * 3 << std::endl;

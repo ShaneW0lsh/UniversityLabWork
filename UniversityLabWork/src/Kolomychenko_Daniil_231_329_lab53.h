@@ -13,7 +13,6 @@ namespace lab53 {
         int* upper_diagonal;
         int* lower_diagonal;
 
-
     public:
         TridiagonalMatrix(int size);
         ~TridiagonalMatrix();

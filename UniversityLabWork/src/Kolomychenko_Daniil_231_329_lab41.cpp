@@ -1,31 +1,33 @@
 ﻿#include "Kolomychenko_Daniil_231_329_lab41.h"
 
-void lab41::launch() {
+void lab41::launch()
+{
     while (true) {
         std::cout << "Enter 1 to check for palindrome, 2 to find substring, 3 to encrypt, 4 to find all names in quotes: ";
         int user_input;
         std::cin >> user_input;
         std::cin.ignore();
         switch (user_input) {
-        case 1:
-            task1();
-            break;
-        case 2:
-            task2();
-            break;
-        case 3:
-            task3();
-            break;
-        case 4:
-            task4();
-            break;
-        case 5:
-            return;
+            case 1:
+                task1();
+                break;
+            case 2:
+                task2();
+                break;
+            case 3:
+                task3();
+                break;
+            case 4:
+                task4();
+                break;
+            case 5:
+                return;
         }
     }
 }
 
-void lab41::task1() {
+void lab41::task1()
+{
     char buffer[256];
 
     printf("Enter a string (up to 255 characters): ");
@@ -37,7 +39,8 @@ void lab41::task1() {
     else std::cout << "It's not a palindrome!\n";
 }
 
-void lab41::task2() {
+void lab41::task2()
+{
     char str[256], substr[256];
     printf("Enter a string(up to 255 characters): ");
     fgets(str, sizeof(str), stdin);
@@ -58,7 +61,8 @@ void lab41::task2() {
     std::cout << '\n';
 }
 
-void lab41::task3() {
+void lab41::task3()
+{
     char buffer[256];
     printf("Enter a string to encypt(up to 255 characters): ");
     fgets(buffer, sizeof(buffer), stdin);
@@ -70,7 +74,8 @@ void lab41::task3() {
     print_string(buffer);
 }
 
-void lab41::task4() {
+void lab41::task4()
+{
     char buffer[256];
     printf("Enter a string(up to 255 characters): ");
     fgets(buffer, sizeof(buffer), stdin);
@@ -100,7 +105,8 @@ void lab41::task4() {
 
 // на вход подается массив из символов, возвращает тру или фолз в зависимости от того 
 // является данный массив палиндромом или нет
-bool lab41::palindrome(char* str) {
+bool lab41::palindrome(char* str)
+{
     for (int i = 0, j = strlen(str) - 1; i < j; ++i, --j) {
         if (str[i] == ' ') ++i;
         if (str[j] == ' ') --j;
@@ -120,7 +126,8 @@ bool lab41::palindrome(char* str) {
 // на вход подается два массива из чаров, которые представляют из себя основную строку и 
 // подстроку. возвращается структура, которая в себе содержит массив из всех индексов 
 // с позиции которых начинается подстрока а также длина данного массива.
-lab41::SubstringIndices lab41::find_substring(const char* str, const char* substr) {
+lab41::SubstringIndices lab41::find_substring(const char* str, const char* substr)
+{
     int length = strlen(str);
     int* tmp_array = new int[length];
     for (int i = 0; i < length; ++i) tmp_array[i] = -1;
@@ -151,7 +158,8 @@ lab41::SubstringIndices lab41::find_substring(const char* str, const char* subst
 
 // на вход подается два массива, возвращается тру или фолз в зависимости от того равны данные массивы
 // или нет. равенство в данном случае опеределяется как полное совпадение содержимого данных массивов
-bool lab41::equals(const char* str1, const char* str2) {
+bool lab41::equals(const char* str1, const char* str2)
+{
     if (strlen(str1) != strlen(str2))
         return false;
 
@@ -162,14 +170,16 @@ bool lab41::equals(const char* str1, const char* str2) {
 }
 
 // выводит массив из чаров, переданный как аргумент
-void lab41::print_string(const char* str) {
+void lab41::print_string(const char* str)
+{
     for (int i = 0; i < strlen(str); ++i)
         std::cout << str[i];
     std::cout << '\n';
 }
 
 // передается ключ и строка для зашифровки. к каждому элементу массива добавляется данных ключ
-void lab41::encrypt(char* str_to_encrypt, int key) {
+void lab41::encrypt(char* str_to_encrypt, int key)
+{
     for (int i = 0; i < strlen(str_to_encrypt); ++i) {
         if (str_to_encrypt[i] != ' ') {
             str_to_encrypt[i] += key;

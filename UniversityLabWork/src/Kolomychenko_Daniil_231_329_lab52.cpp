@@ -15,7 +15,9 @@ lab52::Matrix::Matrix(int rows, int columns)
 }
 
 lab52::Matrix::Matrix(int rows, int columns, double* elements)
-    : rows(rows), columns(columns), elements(elements) {}
+    : rows(rows), columns(columns), elements(elements)
+{
+}
 
 lab52::Matrix::Matrix(const Matrix& other)
     : rows(other.rows), columns(other.columns)
@@ -38,10 +40,18 @@ lab52::Matrix lab52::Matrix::sum(const Matrix& other) const
     return result;
 }
 
-//lab52::Matrix lab52::Matrix::sum(const double* arr, int size) const
-//{
-//
-//}
+lab52::Matrix lab52::Matrix::sum(const double* arr, int size) const
+{
+    if (rows * columns != size) {
+        std::cout << "Not valid input!\n";
+        return Matrix(0, 0);
+    }
+
+    Matrix result(rows, columns);
+    for (int i = 0; i < size; ++i)
+        result.elements[i] = elements[i] + arr[i];
+    return result;
+}
 
 lab52::Matrix lab52::Matrix::mult(const Matrix& other) const
 {
@@ -51,24 +61,38 @@ lab52::Matrix lab52::Matrix::mult(const Matrix& other) const
     }
 
     Matrix result(rows, other.columns);
-
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < other.columns; ++j) {
-            int sum = 0;
+            double sum = 0;
             for (int k = 0; k < columns; ++k) {
-                sum += elements[i * columns + k] * other.elements[k * columns + j];
+                sum += elements[i * columns + k] * other.elements[k * other.columns + j];
             }
-            result.elements[i * columns + j] = sum;
+            result.elements[i * other.columns + j] = sum;
         }
     }
 
     return result;
 }
 
-//lab52::Matrix lab52::Matrix::mult(const double* arr, int size) const
-//{
-//    return NULL;
-//}
+lab52::Matrix lab52::Matrix::mult(const double* arr, int size) const
+{
+    if (rows * columns != size) {
+        std::cout << "Number of elements in the first matrix must be equal to the number of elements in the second!\n";
+        return Matrix(0, 0);
+    }
+
+    Matrix result(rows, columns);
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            int sum = 0;
+            for (int k = 0; k < columns; ++k) {
+                sum += elements[i * columns + k] * arr[k * columns + j];
+            }
+            result.elements[i * columns + j] = sum;
+        }
+    }
+    return result;
+}
 
 double lab52::Matrix::trace() const
 {
@@ -145,7 +169,7 @@ void lab52::Matrix::input(int i, int j)
     rows = i;
     columns = j;
     elements = new double[rows * columns];
-    
+
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             std::cin >> elements[i * columns + j];
@@ -166,7 +190,7 @@ void lab52::Matrix::input(int i, int j, double* arr)
     }
 }
 
-void lab52::Matrix::print() const 
+void lab52::Matrix::print() const
 {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
@@ -215,12 +239,25 @@ bool lab52::Matrix::equals(Matrix& other)
 
 void lab52::launch()
 {
-    Matrix m(3, 3);
-    double* other = new double[2 * 2];
-    other[0] = 1;
-    other[1] = 2;
-    other[2] = 3;
-    other[3] = 4;
-    m.input(2, 2, other);
-    m.print();
+    Matrix m1(0, 0);
+
+    m1.input(3, 3, new double[]
+    {
+        1, 2, 3,
+            3, 4, 1,
+             5, 6, 1
+    });
+    
+    m1.print();
+    std::cout << '\n';
+
+    Matrix m2(3, 2, new double[]
+    {
+        2, 9, 8,
+        1, 3, 5
+    });
+
+    (m1.mult(m2)).print();
+
+    //Matrix m3()
 }

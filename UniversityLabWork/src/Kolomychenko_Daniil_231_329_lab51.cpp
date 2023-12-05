@@ -2,17 +2,25 @@
 
 void lab51::launch()
 {
-    Matrix m1(3, 3, new double[9] {
-        11, 2, 3, 
-        4, -5, 6, 
-        7, 8, -9
+    Matrix m1(3, 3, new double[]
+    {
+        1, 2, 3,
+        4, 5, 6,
+        7, 8, 9
     });
-    std::cout << "\nDeterminant:\n";
-    std::cout << m1.determinant() << std::endl;
+    Matrix m2(3, 1, new double[]
+    {
+        16,
+        2,
+        2,
+    });
+    std::cout << m1.trace() << '\n';
+    std::cout << "Multiplication:\n";
+    m1.mult(m2).print();
 }
 
 template<typename T>
-void lab51::init_array(T* arr, int size, T value) 
+void lab51::init_array(T* arr, int size, T value)
 {
     for (int i = 0; i < size; ++i)
         arr[i] = value;
@@ -26,17 +34,19 @@ lab51::Matrix::Matrix(int rows, int columns)
 }
 
 lab51::Matrix::Matrix(int rows, int columns, double* elements)
-    : rows(rows), columns(columns), elements(elements) {}
+    : rows(rows), columns(columns), elements(elements)
+{
+}
 
 lab51::Matrix::Matrix(const Matrix& other)
-    : rows(other.rows), columns(other.columns) 
+    : rows(other.rows), columns(other.columns)
 {
     elements = new double[rows * columns];
     for (int i = 0; i < rows * columns; ++i)
         elements[i] = other.elements[i];
 }
 
-lab51::Matrix::~Matrix() 
+lab51::Matrix::~Matrix()
 {
     delete[] elements;
 }
@@ -57,27 +67,26 @@ lab51::Matrix lab51::Matrix::mult(const Matrix& other) const
     }
 
     Matrix result(rows, other.columns);
-
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < other.columns; ++j) {
-            int sum = 0;
+            double sum = 0;
             for (int k = 0; k < columns; ++k) {
-                sum += elements[i * columns + k] * other.elements[k * columns + j];
+                sum += elements[i * columns + k] * other.elements[k * other.columns + j];
             }
-            result.elements[i * columns + j] = sum;
+            result.elements[i * other.columns + j] = sum;
         }
     }
 
     return result;
 }
 
-double lab51::Matrix::trace() const 
+double lab51::Matrix::trace() const
 {
-    double traceValue = 0;
+    double trace_value = 0;
     for (int i = 0; i < rows; ++i) {
-        traceValue += elements[i * columns + i];
+        trace_value += elements[i * columns + i];
     }
-    return traceValue;
+    return trace_value;
 }
 
 double lab51::Matrix::determinant() const
@@ -91,17 +100,16 @@ double lab51::Matrix::determinant() const
 
     double result = 0.0;
     for (int i = 0; i < get_size(); ++i) {
-        if (i % 2 == 0) 
+        if (i % 2 == 0)
             result += elements[i] * minor(0, i).determinant();
-        else 
+        else
             result -= elements[i] * minor(0, i).determinant();
-        std::cout << elements[i] * minor(0, i).determinant() << std::endl;
     }
 
     return result;
 }
 
-lab51::Matrix lab51::Matrix::minor(int row, int col) const 
+lab51::Matrix lab51::Matrix::minor(int row, int col) const
 {
     int minor_size = get_size() - 1;
     Matrix result(minor_size, minor_size);
@@ -122,7 +130,7 @@ lab51::Matrix lab51::Matrix::minor(int row, int col) const
     return result;
 }
 
-void lab51::Matrix::mult_by_num(double num) 
+void lab51::Matrix::mult_by_num(double num)
 {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
@@ -140,7 +148,7 @@ void lab51::Matrix::input()
     }
 }
 
-void lab51::Matrix::print() const 
+void lab51::Matrix::print() const
 {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
@@ -155,8 +163,8 @@ int lab51::Matrix::get_columns() const { return columns; }
 int lab51::Matrix::get_rows() const { return rows; }
 
 double lab51::Matrix::get_element(int i, int j) const
-{ 
-    return elements[i * columns + j]; 
+{
+    return elements[i * columns + j];
 }
 
 bool lab51::Matrix::is_square() const { return rows == columns; }

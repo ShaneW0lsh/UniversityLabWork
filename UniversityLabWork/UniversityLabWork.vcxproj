@@ -139,6 +139,7 @@
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab52.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab53.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab54.cpp" />
+    <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab55.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab61.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab62.cpp" />
     <ClCompile Include="src\Kolomychenko_Daniil_231_329_lab63.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="src\Launcher.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab55.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab63.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab64.h" />
     <ClInclude Include="src\Kolomychenko_Daniil_231_329_lab41.h" />

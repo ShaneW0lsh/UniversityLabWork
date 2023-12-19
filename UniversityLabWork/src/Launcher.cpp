@@ -1,6 +1,6 @@
-#include "Kolomychenko_Daniil_231_329_lab53.h"
+#include "Kolomychenko_Daniil_231_329_lab55.h"
 
 int main()
 {
-    lab53::launch();
+    lab55::launch();
 }

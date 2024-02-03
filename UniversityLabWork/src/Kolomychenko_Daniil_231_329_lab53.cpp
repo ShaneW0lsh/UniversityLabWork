@@ -1,12 +1,12 @@
 ﻿#include "Kolomychenko_Daniil_231_329_lab53.h"
 
-void lab53::init_array(int* arr, int size)
+void lab53::init_array(int *arr, int size)
 {
-    for (int i = 0; i < size; ++i) arr[i] = 0;
+    for (int i = 0; i < size; ++i)
+        arr[i] = 0;
 }
 
-lab53::TridiagonalMatrix::TridiagonalMatrix(int size)
-    : size(size)
+lab53::TridiagonalMatrix::TridiagonalMatrix(int size) : size(size)
 {
     data = new int[size];
     upper_diagonal = new int[size - 1];
@@ -18,20 +18,14 @@ lab53::TridiagonalMatrix::TridiagonalMatrix(int size)
 
 lab53::TridiagonalMatrix::~TridiagonalMatrix()
 {
-    delete[] data;
+    delete[] (data);
     delete[] upper_diagonal;
     delete[] lower_diagonal;
 }
 
-void lab53::TridiagonalMatrix::input()
-{
-    std::cin >> *this;
-}
+void lab53::TridiagonalMatrix::input() { std::cin >> *this; }
 
-void lab53::TridiagonalMatrix::print() const
-{
-    std::cout << *this;
-}
+void lab53::TridiagonalMatrix::print() const { std::cout << *this; }
 
 int lab53::TridiagonalMatrix::tr() const
 {
@@ -42,7 +36,8 @@ int lab53::TridiagonalMatrix::tr() const
     return trace;
 }
 
-std::ostream& lab53::operator<<(std::ostream& os, const TridiagonalMatrix& matrix)
+std::ostream &lab53::operator<<(std::ostream &os,
+                                const TridiagonalMatrix &matrix)
 {
     for (int i = 0; i < matrix.size; ++i) {
         for (int j = 0; j < matrix.size; ++j) {
@@ -60,7 +55,7 @@ std::ostream& lab53::operator<<(std::ostream& os, const TridiagonalMatrix& matri
     return os;
 }
 
-std::istream& lab53::operator>>(std::istream& is, TridiagonalMatrix& matrix)
+std::istream &lab53::operator>>(std::istream &is, TridiagonalMatrix &matrix)
 {
     for (int i = 0; i < matrix.size; ++i) {
         for (int j = 0; j < matrix.size; ++j) {
@@ -75,7 +70,8 @@ std::istream& lab53::operator>>(std::istream& is, TridiagonalMatrix& matrix)
     return is;
 }
 
-lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator+(const TridiagonalMatrix& other) const
+lab53::TridiagonalMatrix
+lab53::TridiagonalMatrix::operator+(const TridiagonalMatrix &other) const
 {
     TridiagonalMatrix result(size);
 
@@ -83,15 +79,18 @@ lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator+(const TridiagonalMa
         result.data[i] = this->data[i] + other.data[i];
 
     for (int i = 0; i < size - 1; ++i)
-        result.upper_diagonal[i] = this->upper_diagonal[i] + other.upper_diagonal[i];
+        result.upper_diagonal[i] =
+            this->upper_diagonal[i] + other.upper_diagonal[i];
 
     for (int i = 0; i < size - 1; ++i)
-        result.lower_diagonal[i] = this->lower_diagonal[i] + other.lower_diagonal[i];
+        result.lower_diagonal[i] =
+            this->lower_diagonal[i] + other.lower_diagonal[i];
 
     return result;
 }
 
-lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator-(const TridiagonalMatrix& other) const
+lab53::TridiagonalMatrix
+lab53::TridiagonalMatrix::operator-(const TridiagonalMatrix &other) const
 {
     TridiagonalMatrix result(size);
 
@@ -99,10 +98,12 @@ lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator-(const TridiagonalMa
         result.data[i] = this->data[i] - other.data[i];
 
     for (int i = 0; i < size - 1; ++i)
-        result.upper_diagonal[i] = this->upper_diagonal[i] - other.upper_diagonal[i];
+        result.upper_diagonal[i] =
+            this->upper_diagonal[i] - other.upper_diagonal[i];
 
     for (int i = 0; i < size - 1; ++i)
-        result.lower_diagonal[i] = this->lower_diagonal[i] - other.lower_diagonal[i];
+        result.lower_diagonal[i] =
+            this->lower_diagonal[i] - other.lower_diagonal[i];
 
     return result;
 }
@@ -123,10 +124,11 @@ lab53::TridiagonalMatrix lab53::TridiagonalMatrix::operator-()
     return result;
 }
 
-void lab53::TridiagonalMatrix::operator+=(const TridiagonalMatrix& other)
+void lab53::TridiagonalMatrix::operator+=(const TridiagonalMatrix &other)
 {
     if (size != other.size) {
-        std::cout << "Not valid operation, these matrices are of different size!\n";
+        std::cout
+            << "Not valid operation, these matrices are of different size!\n";
         return;
     }
 
@@ -138,10 +140,11 @@ void lab53::TridiagonalMatrix::operator+=(const TridiagonalMatrix& other)
         lower_diagonal[i] += other.lower_diagonal[i];
 }
 
-void lab53::TridiagonalMatrix::operator-=(const TridiagonalMatrix& other)
+void lab53::TridiagonalMatrix::operator-=(const TridiagonalMatrix &other)
 {
     if (size != other.size) {
-        std::cout << "Not valid operation, these matrices are of different size!\n";
+        std::cout
+            << "Not valid operation, these matrices are of different size!\n";
         return;
     }
 
@@ -153,10 +156,12 @@ void lab53::TridiagonalMatrix::operator-=(const TridiagonalMatrix& other)
         lower_diagonal[i] -= other.lower_diagonal[i];
 }
 
-lab52::Matrix lab53::TridiagonalMatrix::operator*(const TridiagonalMatrix& other) const
+lab52::Matrix
+lab53::TridiagonalMatrix::operator*(const TridiagonalMatrix &other) const
 {
     if (size != other.size) {
-        std::cout << "Not valid operation, these matrices need to be the same size!\n";
+        std::cout << "Not valid operation, these matrices need to be the same "
+                     "size!\n";
         return lab52::Matrix(0, 0);
     }
 
@@ -209,10 +214,7 @@ void lab53::TridiagonalMatrix::set(int row, int col, int value)
         lower_diagonal[col] = value;
 }
 
-int lab53::TridiagonalMatrix::get_size() const
-{
-    return size;
-}
+int lab53::TridiagonalMatrix::get_size() const { return size; }
 
 void lab53::launch()
 {
@@ -223,8 +225,10 @@ void lab53::launch()
     std::cin >> m2;
 
     std::cout << '\n';
-    std::cout << "first matrix:\n" << m1 << std::endl
-        << "second matrix:\n" << m2 << std::endl;
+    std::cout << "first matrix:\n"
+              << m1 << std::endl
+              << "second matrix:\n"
+              << m2 << std::endl;
 
     std::cout << "sum of those two matrices:\n";
     std::cout << m1 + m2 << std::endl;

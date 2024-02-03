@@ -19,6 +19,7 @@ void lab63::launch()
 
         for (int factor : {2, 3, 5}) {
             int next_number = current * factor;
+            // check if next_number is not in visited
             if (visited.find(next_number) == visited.end()) {
                 numbers.push(next_number);
                 visited.insert(next_number);

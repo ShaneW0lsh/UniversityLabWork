@@ -5,12 +5,12 @@ void lab61::launch()
     while (true) {
         std::cout << "Enter a line with symbols and brackets: ";
         std::string expression;
-        std::cin >> expression;
+        std::getline(std::cin, expression);
         std::cout << is_valid_expression(expression) << std::endl;
     }
 }
 
-bool lab61::is_valid_expression(const std::string& expression)
+bool lab61::is_valid_expression(const std::string &expression)
 {
     std::stack<char> brackets;
 
@@ -18,9 +18,7 @@ bool lab61::is_valid_expression(const std::string& expression)
         if (bracket == '(' || bracket == '[' || bracket == '{')
             brackets.push(bracket);
         else if (bracket == ')' || bracket == ']' || bracket == '}') {
-            if (brackets.empty()) {
-                return false;
-            }
+            if (brackets.empty()) return false;
 
             char open_bracket = brackets.top();
             brackets.pop();

@@ -1,23 +1,24 @@
 #pragma once
-#include <iostream>
-#include <deque>
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <deque>
+#include <iostream>
+#include <stack>
+#include <string>
+#include <vector>
 
-namespace lab62 {
+namespace lab62
+{
 
-    void launch();
-    void task1();
-    bool check_palindrome(std::string input);
-    void task2();
+void launch();
+void task1();
+bool check_palindrome(std::string input);
+void task2();
+struct Point {
+    double x;
+    double y;
+    void print();
+};
 
-    struct Point {
-        int x;
-        int y;
-        void print();
-    };
-
-    //std::deque<Point> P;
-    //std::vector<Point> A;
-}
+Point find_base_point(std::vector<lab62::Point> &A);
+std::deque<int> &scan_algo(std::vector<lab62::Point> &A);
+} // namespace lab62

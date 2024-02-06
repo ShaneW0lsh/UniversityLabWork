@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra
 
 # Source files, header files, and output executable
-SRC = Launcher.cpp Kolomychenko_Daniil_231_329_lab63.cpp
+SRC = Launcher.cpp Kolomychenko_Daniil_231_329_lab62.cpp
 OBJ = $(SRC:.cpp=.o)
 EXECUTABLE = run
 

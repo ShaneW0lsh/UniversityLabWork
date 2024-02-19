@@ -1,3 +1,3 @@
-#include "Kolomychenko_Daniil_231_329_lab62.h"
+#include "Kolomychenko_Daniil_231_329_lab7.h"
 
-int main() { lab62::launch(); }
+int main() { lab7::launch(); }

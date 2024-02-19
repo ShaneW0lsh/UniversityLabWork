@@ -7,25 +7,29 @@ void lab66::launch()
     getline(std::cin, text);
 
     std::string text_without_punctuation;
-    for (const auto& letter : text)
+    for (const auto &letter : text) {
         if (!is_any(letter, ",.!?"))
             text_without_punctuation += letter;
+        else
+            text_without_punctuation += ' '; // there might be a problem here
+    }
 
     std::vector<std::string> splitted = split(text_without_punctuation);
 
     std::map<std::string, int> word_map;
     int number_of_words = 0;
-    for (auto& element : splitted) {
+    for (auto &element : splitted) {
         ++number_of_words;
         element = to_lower(element);
-        if (word_map.contains(element))
+        if (word_map.find(element) != word_map.end())
             ++word_map[element];
         else
             word_map[element] = 1;
     }
 
-    for (const auto& [key, value] : word_map) {
-        std::cout << key << ' ' << (int)((double)value / number_of_words * 100) << '%' << std::endl;
+    for (const auto &[key, value] : word_map) {
+        std::cout << key << ' ' << (int)((double)value / number_of_words * 100)
+                  << '%' << std::endl;
     }
 }
 
@@ -43,8 +47,7 @@ std::vector<std::string> lab66::split(std::string in)
 bool lab66::is_any(const char letter, const std::string values)
 {
     for (int i = 0; i < values.length(); ++i) {
-        if (letter == values[i])
-            return true;
+        if (letter == values[i]) return true;
     }
     return false;
 }
@@ -56,4 +59,3 @@ std::string lab66::to_lower(const std::string str)
         result += tolower(str[i]);
     return result;
 }
-

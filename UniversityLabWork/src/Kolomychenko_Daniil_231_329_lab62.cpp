@@ -36,7 +36,7 @@ bool lab62::check_palindrome(std::string input)
 {
     std::deque<char> deq;
     for (size_t i = 0; i < input.length(); ++i) {
-        deq.push_back(input[i]);
+        if (input[i] != ' ') deq.push_back(tolower(input[i]));
     }
 
     while (deq.size() > 1) {
@@ -96,7 +96,7 @@ std::deque<int> &lab62::scan_algo(std::vector<lab62::Point> &A)
 void lab62::task2()
 {
     std::vector<lab62::Point> A = {
-        {4.2, 0.0}, {2.0, 1.0}, {5.0, 2.0}, {0.0, 0.0}, {1.0, 3.0},
+        {4.0, 0.0}, {2.0, 1.0}, {5.0, 2.0}, {0.0, 0.0}, {1.0, 3.0},
         {3.0, 3.0}, {1.0, 4.0}, {2.0, 4.0}, {4.0, 5.0}, {2, 6}};
 
     lab62::Point R = find_base_point(A);

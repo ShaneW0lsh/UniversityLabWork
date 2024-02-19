@@ -7,8 +7,9 @@ struct lab7::Person {
 };
 
 // Обобщенная функция быстрой сортировки с использованием std::function<>
-template<typename T>
-void lab7::quick_sort(std::vector<T>& arr, int low, int high, std::function<bool(const T&, const T&)> compare)
+template <typename T>
+void lab7::quick_sort(std::vector<T> &arr, int low, int high,
+                      std::function<bool(const T &, const T &)> compare)
 {
     if (low < high) {
         int pivotIndex = low;
@@ -27,56 +28,46 @@ void lab7::quick_sort(std::vector<T>& arr, int low, int high, std::function<bool
 
 void lab7::launch()
 {
-    // Пример использования быстрой сортировки для структуры данных
     std::vector<Person> people = {
         {"Doe", "John", 30},
         {"Smith", "Alice", 25},
         {"Johnson", "Bob", 35},
-        // Добавьте другие записи в вектор по вашему усмотрению
     };
 
-    // Сортировка по фамилии
-    quick_sort<Person>(people, 0, people.size() - 1, [](const Person& a, const Person& b)
-    {
-        return a.surname < b.surname;
-    });
+    quick_sort<Person>(
+        people, 0, people.size() - 1,
+        [](const Person &a, const Person &b) { return a.surname < b.surname; });
 
     std::cout << "Sorted by Surname:" << std::endl;
-    for (const auto& person : people) {
-        std::cout << person.surname << " " <<
-            person.name << " " << person.age << std::endl;
+    for (const auto &person : people) {
+        std::cout << person.surname << " " << person.name << " " << person.age
+                  << std::endl;
     }
 
-    // Сортировка по имени
-    quick_sort<Person>(people, 0, people.size() - 1, [](const Person& a, const Person& b)
-    {
-        return a.name < b.name;
-    });
+    quick_sort<Person>(
+        people, 0, people.size() - 1,
+        [](const Person &a, const Person &b) { return a.name < b.name; });
 
     std::cout << "Sorted by Name:" << std::endl;
-    for (const auto& person : people) {
-        std::cout << person.surname << " " << person.name << " " << person.age << std::endl;
+    for (const auto &person : people) {
+        std::cout << person.surname << " " << person.name << " " << person.age
+                  << std::endl;
     }
 
-    // Сортировка по возрасту
-    quick_sort<Person>(people, 0, people.size() - 1, [](const Person& a, const Person& b)
-    {
-        return a.age < b.age;
-    });
+    quick_sort<Person>(
+        people, 0, people.size() - 1,
+        [](const Person &a, const Person &b) { return a.age < b.age; });
 
     std::cout << "Sorted by Age:" << std::endl;
-    for (const auto& person : people) {
-        std::cout << person.surname << " " << person.name << " " << person.age << std::endl;
+    for (const auto &person : people) {
+        std::cout << person.surname << " " << person.name << " " << person.age
+                  << std::endl;
     }
 
-    std::vector<int> numbers = {
-        100, 1, 3, 5, -1, 0, 10
-    };
-    quick_sort<int>(numbers, 0, numbers.size() - 1, [](const int& a, const int& b)
-    {
-        return a < b;
-    });
-    for (const int& number : numbers) {
+    std::vector<int> numbers = {100, 1, 3, 5, -1, 0, 10};
+    quick_sort<int>(numbers, 0, numbers.size() - 1,
+                    [](const int &a, const int &b) { return a < b; });
+    for (const int &number : numbers) {
         std::cout << number << ' ';
     }
 }
